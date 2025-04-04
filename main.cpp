@@ -3,6 +3,7 @@
 #include <cstdio>
 // declaring functions
 bool isPowerOf2(int num);
+bool isPowerOf2NoLoop(int num);
 bool checkPrime(int number);
 void powerTest();
 void primeTest();
@@ -15,14 +16,7 @@ int main() {
 
     //tests if the number is prime
     primeTest();
-    /*int number = 15;
-    //int number = 3;
-    bool primeOrNo = checkPrime(number);
-    if (primeOrNo){
-        printf("PASS\n");
-    } else {
-        printf("FAIL\n");
-    }*/
+
     //test simplifying fraction code
     fractionTest();
     return 0;
@@ -39,6 +33,15 @@ bool isPowerOf2(int num){
     }
     return true;
 }
+// checks if num is a power of 2 without loops
+bool isPowerOf2NoLoop(int num){
+    if (num == 2 || num % 4 == 0){
+        return true;
+    } else {
+        return false;
+    }
+}
+// checks of the number is prime
 bool checkPrime(int number){
     if (number < 2 || (number > 2 && number % 2 == 0)){
         return false;
@@ -106,6 +109,24 @@ void powerTest(){
         bool expect = outputs[i];
 
         bool actual = isPowerOf2(input);
+        //compare expected vs output
+        if (expect==actual){
+            std::cout << "PASS!" << std::endl;
+        } else {
+            std::cout << "FAIL!" << std::endl;
+        }
+        if (actual){
+            printf("%d is a power of 2\n", input);
+        } else {
+            printf("%d is NOT a power of 2\n", input);
+        }
+    }
+    printf("Checking non-loop function:\n");
+    for (int i = 0; i < 4; i++){
+        int input = inputs[i];
+        bool expect = outputs[i];
+
+        bool actual = isPowerOf2NoLoop(input);
         //compare expected vs output
         if (expect==actual){
             std::cout << "PASS!" << std::endl;
