@@ -1,31 +1,34 @@
+#include <iostream>
+#include <string>
+#include <cstdio>
+// declaring functions
+bool isPowerOf2(int num);
+bool checkPrime(int number);
+void powerTest();
+void primeTest();
+void fractionTest();
+
 int main() {
     //tests if num is a power of two
-    int num = 6;
-    //int num = 8;
-    is_power_of_2(num);
-    bool result = is_power_of_2(num);
-    if (result){
-        printf("%d is divisible by 2", num);
-    } else {
-        printf("%d is NOT divisible by 2", num);
-    }
+    printf("Testing powers of 2:\n");
+    powerTest();
+
     //tests if the number is prime
-    int number = 15;
+    primeTest();
+    /*int number = 15;
     //int number = 3;
     bool primeOrNo = checkPrime(number);
     if (primeOrNo){
-        printf("PASS");
+        printf("PASS\n");
     } else {
-        printf("FAIL");
-    }
-    //tests
-    Fraction num1(2, 4);
-    std::cout << num1.numerator << "/" << num1.denominator << std::endl;
-    test();
+        printf("FAIL\n");
+    }*/
+    //test simplifying fraction code
+    fractionTest();
     return 0;
 }
 //loop version, repeatedly divides num by 2 & checks divisibility
-bool is_power_of_2(int num){
+bool isPowerOf2(int num){
     while (num != 1){
         if (num % 2 == 0){
             num = num/2;
@@ -51,7 +54,7 @@ bool checkPrime(int number){
     }
 }
 //reduce given fraction to minimum terms
-void test();
+//void test();
 // fraction class to create fraction objects that have a numerator & denominator
 class Fraction {
 public:
@@ -60,7 +63,7 @@ public:
 
     Fraction(int numerator, int denominator) : numerator(numerator), denominator(denominator) {};
     std::string to_string(){
-        return std::to_string(numerator) + "/" + std::to_string(denominator)
+        return std::to_string(numerator) + "/" + std::to_string(denominator);
     }
 
     //operator overload
@@ -68,10 +71,6 @@ public:
         return this->numerator == other.numerator && this->denominator == other.denominator;
     }
 };
-
-//Fraction reduce(Fraction input){
-//return input; //TODO: replace with my code, change it
-//}
 
 Fraction reduce(Fraction input){
     int min;
@@ -92,7 +91,58 @@ Fraction reduce(Fraction input){
     input.denominator /= gcd;
     return input;
 }
-void test(){
+//testing if power of 2
+void powerTest(){
+    // 4 -> true
+    // 9 -> false
+    // 32 -> true
+    // 27 -> false
+
+    //arrays created for inputs and their expected outputs
+    int inputs[4] = {4, 9, 32, 27};
+    bool outputs[4] = {true, false, true, false};
+    for (int i = 0; i < 4; i++){
+        int input = inputs[i];
+        bool expect = outputs[i];
+
+        bool actual = isPowerOf2(input);
+        //compare expected vs output
+        if (expect==actual){
+            std::cout << "PASS!" << std::endl;
+        } else {
+            std::cout << "FAIL!" << std::endl;
+        }
+        if (actual){
+            printf("%d is a power of 2\n", input);
+        } else {
+            printf("%d is NOT a power of 2\n", input);
+        }
+    }
+}
+void primeTest(){
+    // 15 -> false
+    // 3 -> true
+    // 21 -> false
+    // 7 -> true
+
+    //arrays created for inputs and their expected outputs
+    int inputs[4] = {15, 3, 21, 7};
+    bool outputs[4] = {false, true, false, true};
+    for (int i = 0; i < 4; i++) {
+        int input = inputs[i];
+        bool expect = outputs[i];
+
+        bool actual = checkPrime(input);
+        //compare expected vs output
+        if (expect == actual) {
+            std::cout << "PASS!" << std::endl;
+        } else {
+            std::cout << "FAIL!" << std::endl;
+        }
+    }
+}
+//testing method for simplifying fractions
+void fractionTest(){
     //reduce given fraction to minimum terms
     // 2/4 -> 1/2
     // 4/2 -> 2/1
@@ -104,7 +154,7 @@ void test(){
     Fraction inputs[4] = {Fraction(1,2), Fraction(2, 4), Fraction(4, 2), Fraction(6, 8)};
     Fraction outputs[4] = {Fraction(1,2), Fraction(1, 2), Fraction(2, 1), Fraction(3, 4)};
 
-    //call the function
+    //compare the received output to the expected output
     for (int i = 0; i < 4; i++){
         Fraction input = inputs[i];
         Fraction expect = outputs[i];
